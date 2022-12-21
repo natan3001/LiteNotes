@@ -13,7 +13,7 @@
                         {{ $note->title }}
                     </h2>
                     <p class="mt-2">
-                        {{ $note->text }}
+                        {{ Str::limit($note->text, 200) }}
                     </p>
                     <span class="block mt-4 text-sm opacity-70">
                         {{ $note->updated_at->diffForHumans() }}
@@ -22,6 +22,8 @@
             @empty
                 <p>You have no notes yet.</p>
             @endforelse
+
+            {{ $notes->links() }}
         </div>
     </div>
 </x-app-layout>
