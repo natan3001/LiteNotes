@@ -16,7 +16,7 @@
                         <strong>Created: </strong> {{ $note->created_at->diffForHumans() }}
                     </p>
                     <p class="opacity-70 ml-8">
-                        <strong>Updated at: </strong> {{ $note->updated_at->diffForHumans() }}
+                        <strong>Updated: </strong> {{ $note->updated_at->diffForHumans() }}
                     </p>
                     <a href="{{ route('notes.edit', $note) }}" class="btn-link ml-auto">
                         Edit Note
@@ -31,12 +31,16 @@
                     </form>
                 @else
                     <p class="opacity-70">
-                        <strong>Deleted at: </strong> {{ $note->deleted_at->diffForHumans() }}
+                        <strong>Deleted: </strong> {{ $note->deleted_at->diffForHumans() }}
                     </p>
-                    {{-- <a href="{{ route('notes.edit', $note) }}" class="btn-link ml-auto">
-                        Edit Note
-                    </a>
-                    <form action="{{ route('notes.destroy', $note) }}" method="POST">
+                    <form action="{{ route('trashed.update', $note) }}" method="post" class="ml-auto">
+                        @csrf
+                        @method('put')
+                        <button type="submit" class="btn-link">
+                            Restore Note
+                        </button>
+                    </form>
+                    {{-- <form action="{{ route('notes.destroy', $note) }}" method="POST">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger ml-4"
